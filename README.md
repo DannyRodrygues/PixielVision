@@ -41,7 +41,7 @@ A aplicação permite ao usuário:
 ### Validação de Perfil de Gamer
 
 <p align="center">
-  <img src="URL_DA_SUA_IMAGEM_AQUI.png" alt="Demonstração da validação de e-mail">
+  <img src="imagens/validacaoEmail.png" alt="Demonstração da validação de e-mail">
   <br><em>Legenda: Exemplo de validação de e-mail (Regex) e tratamento de erros ao criar um perfil de Gamer.</em>
 </p>
 
@@ -54,11 +54,12 @@ A aplicação permite ao usuário:
 
 ## 🎓 Sobre o Curso
 
-Este projeto é fruto do aprendizado no curso da [Nome da Plataforma/Instrutor]. As aulas cobriram desde a configuração do ambiente até práticas avançadas de refatoração e encapsulamento em Kotlin.
+Este projeto é fruto do aprendizado no curso da [Alura](https://cursos.alura.com.br/course/kotlin-desenvolvendo-primeira-aplicacao). As aulas cobriram desde a configuração do ambiente até práticas avançadas de refatoração e encapsulamento em Kotlin.
 
 ## ✒️ Autor
 
-* **[Seu Nome]** - [Seu Link do LinkedIn]
+* **Daniella Rodrigues** [Acesse meu Linkedin](https://www.linkedin.com/in/devdanyrodrigues/)
+
 
 ---
-Desenvolvido com ❤️ e Kotlin.
+Desenvolvido com ☕ e Kotlin.
