@@ -48,7 +48,7 @@ A aplicação permite ao usuário:
 ## 🚀 Como Executar o Projeto
 
 1.  **Pré-requisitos:** Ter o Java (JDK) instalado.
-2.  **Clonar:** `git clone https://github.com/[SEU_USUARIO]/[NOME_DO_REPOSITORIO].git`
+2.  **Clonar:** `https://github.com/DannyRodrygues/PixielVision.git`
 3.  **Abrir:** Abra o projeto no IntelliJ IDEA como um projeto Maven.
 4.  **Executar:** Encontre a classe principal (com a função `fun main`) e clique em "Run".
 
