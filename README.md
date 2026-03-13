@@ -34,7 +34,7 @@ A aplicação permite ao usuário:
 ### Buscando um Jogo por ID
 
 <p align="center">
-  <img src="images/demonstracaoDeBuscaDoJogo.png" alt="Demonstração da busca de jogo">
+  <img src="" alt="Demonstração da busca de jogo">
   <br><em>Legenda: Captura de tela mostrando o fluxo de busca de um jogo e a exibição de suas informações.</em>
 </p>
 
