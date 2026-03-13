@@ -1,4 +1,4 @@
-package br.com.daniella
+package br.com.daniella.br.com.daniella.pixielvision.modelo
 
 data class Jogo(val titulo:String, val capa: String) {
     var descricao:String? = null

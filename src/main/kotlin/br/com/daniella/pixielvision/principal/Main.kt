@@ -1,61 +1,85 @@
-package br.com.daniella
+package br.com.daniella.br.com.daniella.pixielvision.principal
 
-import com.google.gson.Gson
-import java.lang.NullPointerException
-import java.net.URI
-import java.net.http.HttpClient
-import java.net.http.HttpRequest
-import java.net.http.HttpResponse.BodyHandlers
+
+import br.com.daniella.br.com.daniella.pixielvision.modelo.Gamer
+import br.com.daniella.br.com.daniella.pixielvision.modelo.Jogo
+import br.com.daniella.br.com.daniella.pixielvision.servicos.ConsumoApi
+import tranformarEmIdade
 import java.util.Scanner
 
 fun main() {
     val leitura = Scanner(System.`in`)
-    println("Informe o codigo do jogo a ser buscado.")
-    val busca = leitura.nextLine()
-    val endereco = "https://www.cheapshark.com/api/1.0/games?id=$busca"
-    val client: HttpClient = HttpClient.newHttpClient()
+    val gamer = Gamer.criarGamer(leitura)
+    println("Cadastro concluido com sucesso. Dados do Gamer: ")
+    println(gamer)
+    println("Idade do gamer: " + gamer.dataNascimento?.tranformarEmIdade())
 
-    val request = HttpRequest.newBuilder()
-        .uri(URI.create(endereco))
-        .build()
+    do{
+        println("Informe o codigo do jogo a ser buscado.")
+        val busca = leitura.nextLine()
+        val buscaApi = ConsumoApi()
+        val informacaoJogo = buscaApi.buscaJogo(busca)
 
-    val response = client.send(request, BodyHandlers.ofString())
+        var meuJogo: Jogo? = null
 
-    val json = response.body()
-//    println(json)
-
-    val gson = Gson()
-    var meuJogo:Jogo? = null
-
-    val resultado = runCatching {
-        // Se o JSON for "[]", esta linha vai lançar a exceção que você viu
-        val meuInfoJogo = gson.fromJson(json, InfoJogo::class.java)
-
-        meuJogo = Jogo(
-            meuInfoJogo.info.title,
-            meuInfoJogo.info.thumb
-        )
-    }
-
-    // Se o runCatching pegar qualquer erro (JsonSyntaxException ou NullPointer), ele cai aqui:
-    resultado.onFailure {
-        println("Jogo Inexistente: Tente outro ID")
-    }
-
-    // Opcional: Você pode usar o onSuccess para algo que deva acontecer apenas no sucesso
-    resultado.onSuccess {
-        println("Deseja inserir uma descrição personalizada ? S/N")
-        val opcao = leitura.nextLine()
-        if (opcao.equals("s", ignoreCase = true)){
-            println("Insira a descrição personalizada para o jogo.")
-            val descricaoPersonalizada = leitura.nextLine()
-            meuJogo?.descricao = descricaoPersonalizada
-        } else {
-             meuJogo?.descricao = meuJogo?.titulo
+        val resultado = runCatching {
+            val informacaoJogo = buscaApi.buscaJogo(busca) // A busca agora está protegida
+            meuJogo = Jogo(
+                informacaoJogo.info.title,
+                informacaoJogo.info.thumb
+            )
         }
-        println(meuJogo)
+
+        resultado.onFailure {
+            println("Jogo Inexistente: Tente outro ID")
+        }
+
+        resultado.onSuccess {
+            println("Deseja inserir uma descrição personalizada ? S/N")
+            val opcao = leitura.nextLine()
+            if (opcao.equals("s", ignoreCase = true)){
+                println("Insira a descrição personalizada para o jogo.")
+                val descricaoPersonalizada = leitura.nextLine()
+                meuJogo?.descricao = descricaoPersonalizada
+            } else {
+                meuJogo?.descricao = meuJogo?.titulo
+            }
+            gamer.jogosBuscados.add(meuJogo)
+        }
+       println("Deseja buscar um novo jogo? S/N")
+        val resposta = leitura.nextLine()
+
+    } while (resposta.equals("s", true))
+    println("Jogos buscados:")
+    println(gamer.jogosBuscados)
+
+    println("\n Jogos ordenados por título: ")
+    gamer.jogosBuscados.sortBy {
+        it?.titulo
     }
-    resultado.onSuccess {
-        println("Resultado finalizado com Sucesso !")
+
+    gamer.jogosBuscados.forEach {
+        println("Título: " + it?.titulo)
     }
+
+    val jogosFiltrados = gamer.jogosBuscados.filter {
+        it?.titulo?.contains("batman", true) ?: false
+    }
+    println("\n Jogos filtrados: ")
+    println(jogosFiltrados)
+
+    println("Deseja excluir algum jogo da lista original? S/N")
+    val opcao = leitura.nextLine()
+    if (opcao.equals("s", true)) {
+        println(gamer.jogosBuscados)
+        println("\nInforme a posição do jogo que deseja excluir: ")
+        val posicao =leitura.nextInt()
+        gamer.jogosBuscados.removeAt(posicao)
+    }
+
+    println("\n Lista atualizada:")
+    println(gamer.jogosBuscados)
+
+    println("Busca finalizada com sucesso.")
+
 }
